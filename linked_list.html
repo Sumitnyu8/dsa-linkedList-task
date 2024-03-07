@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked list</title>
+</head>
+
+<body>
+
+    <script>
+        class Node {
+            constructor(data) {
+                this.head = {
+                    value: data,
+                    next: null
+                }
+                this.tail = this.head;
+                this.size = 1;
+            }
+
+            appendNode(node) {
+                let newNode = {
+                    value: node,
+                    next: null
+                }
+                this.tail.next = newNode;
+                this.tail = newNode;
+                this.size += 1;
+            }
+
+            appendNodebeg(node) {
+                let newNode = {
+                    value: node,
+                    next: null
+                }
+                newNode.next = this.head;
+                this.head = newNode;
+                this.size += 1;
+            }
+
+            insertNodeAtIndex(index, data) {
+                if (index < 0 || index > this.size) {
+                    console.log("Invalid index");
+                    return;
+                }
+
+                if (index === 0) {
+                    this.appendNodebeg(data);
+                    return;
+                }
+
+                let newNode = {
+                    value: data,
+                    next: null
+                };
+
+                let current = this.head;
+                let prev = null;
+                let count = 0;
+
+                while (count < index) {
+                    prev = current;
+                    current = current.next;
+                    count++;
+                }
+
+                newNode.next = current;
+                prev.next = newNode;
+                this.size++;
+            }
+
+
+            findMiddle() {
+                let slow = this.head;
+                let fast = this.head;
+
+                while (fast !== null && fast.next !== null) {
+                    slow = slow.next;
+                    fast = fast.next.next;
+                }
+
+                return slow.value;
+            }
+
+            updateNode(index, value) {
+                let test = this.head;
+                for (let i = 1; i < index; i++) {
+                    test = test.next;
+                }
+                test.value = value;
+            }
+
+            removeNode(index) {
+                let test = this.head;
+                for (let i = 1; i < index - 1; i++) {
+                    test = test.next;
+                }
+                test.next = test.next.next;
+            }
+        }
+        const linkedList = new Node(1);
+        linkedList.appendNode(2);
+        linkedList.appendNode(3);
+        linkedList.appendNode(4);
+        linkedList.appendNode(5);
+        linkedList.appendNode(6);
+        linkedList.updateNode(4, 999);
+        linkedList.appendNodebeg("hii");
+        linkedList.insertNodeAtIndex(2, "hmmmm")
+        console.log(linkedList.findMiddle(linkedList));
+        console.log(linkedList);
+    </script>
+</body>
+
+</html>
